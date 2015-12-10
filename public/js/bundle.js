@@ -28,7 +28,7 @@ $(function () {
 
   var socket = io();
   socket.on('register', function(data) {
-    console.log(data);
+    // console.log(data);
     if (window.polygon)
       window.map.removeLayer(window.polygon);
 
@@ -36,11 +36,11 @@ $(function () {
   });
 
   socket.on('tracking', function(data) {
-    console.log(data);
-    if (window.point)
-      window.map.removeLayer(window.point);
-
-    window.point = L.marker(data).addTo(map);
+    // console.log(data);
+    if (!window.point)
+      window.point = L.marker(data).addTo(window.map);
+    var nLL = new L.LatLng(data[0], data[1]);
+    window.point.setLatLng(nLL);
   });
 });
 
